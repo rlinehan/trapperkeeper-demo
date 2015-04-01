@@ -1,36 +1,70 @@
 (ns trapperkeeper-demo.trapperkeeper-demo-service
   (:require [clojure.tools.logging :as log]
+            [cheshire.core :as json]
             [trapperkeeper-demo.trapperkeeper-demo-core :as core]
+            [puppetlabs.trapperkeeper.services :refer [service-context]]
             [puppetlabs.trapperkeeper.core :as trapperkeeper]))
 
-(defprotocol HelloService
-  (hello [this caller]))
+(defprotocol MeowService
+  (meow [this caller]))
 
-;; Keep init etc functions, just log different messages
-;; Slurp / parse a flat json file that maps from language -> word, store map in context
-;; Pull out map from ctx and use in core functions
-;; Cattify everything
+(defn read-db []
+  (let [path "resources/meowdb.json"]
+    (json/parse-string (slurp path) true)))
 
-(trapperkeeper/defservice hello-english-service
-  HelloService
+(trapperkeeper/defservice meow-english-service
+  MeowService
   []
   (init [this context]
-    (log/info "Initializing hello service")
-    context)
-  (start [this context]
-    (log/info "Starting hello service")
-    context)
-  (stop [this context]
-    (log/info "Shutting down hello service")
-    context)
-  (hello [this caller]
-         (core/english-hello caller)))
+    (log/info "Initializing meow service in English")
+    (assoc context :db (read-db)))
 
-(trapperkeeper/defservice hello-french-service
-  HelloService
+  (start [this context]
+    (log/info "Starting meow service in English")
+    context)
+
+  (stop [this context]
+    (log/info "Shutting down English meow service")
+    context)
+
+  (meow [this caller]
+        (let [db (:db (service-context this))]
+          (core/english-meow db caller))))
+
+(trapperkeeper/defservice meow-french-service
+  MeowService
   []
-  (init)
-  (start)
-  (stop)
-  (hello [this caller]
-         (core/french-hello caller)))
+  (init [this context]
+    (log/info "Initializing meow service in French")
+    (assoc context :db (read-db)))
+
+  (start [this context]
+    (log/info "Starting meow service in French")
+    context)
+
+  (stop [this context]
+    (log/info "Shutting down French meow service")
+    context)
+
+  (meow [this caller]
+        (let [db (:db (service-context this))]
+          (core/french-meow db caller))))
+
+(trapperkeeper/defservice meow-japanese-service
+  MeowService
+  []
+  (init [this context]
+    (log/info "Initializing meow service in Japanese")
+    (assoc context :db (read-db)))
+
+  (start [this context]
+    (log/info "Starting meow service in Japanese")
+    context)
+
+  (stop [this context]
+    (log/info "Shutting down Japanese meow service")
+    context)
+
+  (meow [this caller]
+        (let [db (:db (service-context this))]
+          (core/japanese-meow db caller))))
