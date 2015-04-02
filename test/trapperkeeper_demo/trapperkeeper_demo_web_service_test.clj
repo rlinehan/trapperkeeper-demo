@@ -8,16 +8,16 @@
             [trapperkeeper-demo.trapperkeeper-demo-service :as svc]
             [trapperkeeper-demo.trapperkeeper-demo-web-service :as web-svc]))
 
-(deftest hello-web-service-test
-  (testing "says hello to caller"
+(deftest meow-web-service-test
+  (testing "says meow to caller"
     (with-app-with-config app
-      [svc/hello-service
-       web-svc/hello-web-service
+      [svc/meow-japanese-service
+       web-svc/meow-web-service
        jetty9-service
        webrouting-service]
       {:webserver {:host "localhost"
                    :port 8080}
        :web-router-service {
-         :trapperkeeper-demo.trapperkeeper-demo-web-service/hello-web-service "/hello"}}
-      (let [resp (client/get "http://localhost:8080/hello/foo" {:as :text})]
-        (is (= "Hello, foo!" (:body resp)))))))
+         :trapperkeeper-demo.trapperkeeper-demo-web-service/meow-web-service "/meow"}}
+      (let [resp (client/get "http://localhost:8080/meow/foo" {:as :text})]
+        (is (= "=^.^= < nyaa foo" (:body resp)))))))

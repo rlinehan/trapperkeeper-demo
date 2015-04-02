@@ -4,8 +4,12 @@
             [puppetlabs.trapperkeeper.testutils.bootstrap :refer [with-app-with-empty-config]]
             [trapperkeeper-demo.trapperkeeper-demo-service :as svc]))
 
-(deftest hello-service-test
-  (testing "says hello to caller"
-    (with-app-with-empty-config app [svc/hello-service]
-      (let [hello-service (app/get-service app :HelloService)]
-        (is (= "Hello, foo!" (svc/hello hello-service "foo")))))))
+(deftest meow-services-test
+  (testing "says meow to caller in various languages"
+    (doseq [[sound service] [["meow" svc/meow-english-service]
+                             ["miaou" svc/meow-french-service]
+                             ["nyaa" svc/meow-japanese-service]]]
+
+    (with-app-with-empty-config app [service]
+      (let [meow-service (app/get-service app :MeowService)]
+        (is (= (str "=^.^= < " sound " foo") (svc/meow meow-service "foo"))))))))
