@@ -20,7 +20,7 @@
                    :dependencies [[puppetlabs/trapperkeeper ~tk-version :classifier "test" :scope "test"]
                                   [puppetlabs/kitchensink ~ks-version :classifier "test" :scope "test"]
                                   [clj-http "0.9.2"]
-                                  [org.clojure/tools.namespace "0.2.4"]
+                                  [org.clojure/tools.namespace "0.2.10"]
                                   [ring-mock "0.1.5"]]}}
 
   :repl-options {:init-ns user}
