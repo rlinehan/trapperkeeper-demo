@@ -17,6 +17,7 @@
        webrouting-service]
       {:webserver {:host "localhost"
                    :port 8080}
+       :meow-service {:db-path "resources/test-meowdb.json"}
        :web-router-service {
          :trapperkeeper-demo.trapperkeeper-demo-web-service/meow-web-service "/meow"}}
       (let [resp (client/get "http://localhost:8080/meow/foo" {:as :text})]

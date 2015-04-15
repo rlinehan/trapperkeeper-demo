@@ -8,16 +8,15 @@
 (defprotocol MeowService
   (meow [this caller]))
 
-(defn read-db []
-  (let [path "resources/meowdb.json"]
-    (json/parse-string (slurp path) true)))
+(defn read-db [path]
+  (json/parse-string (slurp path) true))
 
 (trapperkeeper/defservice meow-english-service
   MeowService
-  []
+  [[:ConfigService get-in-config get-config]]
   (init [this context]
-    (log/info "Initializing meow service in English")
-    (assoc context :db (read-db)))
+    (log/info "Hello, initializing meow service in English")
+    (assoc context :db (read-db (get-in-config [:meow-service :db-path]))))
 
   (start [this context]
     (log/info "Starting meow service in English")
@@ -33,10 +32,10 @@
 
 (trapperkeeper/defservice meow-french-service
   MeowService
-  []
+  [[:ConfigService get-in-config]]
   (init [this context]
-    (log/info "Initializing meow service in French")
-    (assoc context :db (read-db)))
+    (log/info "Bonjour, initializing meow service in French")
+    (assoc context :db (read-db (get-in-config [:meow-service :db-path]))))
 
   (start [this context]
     (log/info "Starting meow service in French")
@@ -52,10 +51,10 @@
 
 (trapperkeeper/defservice meow-japanese-service
   MeowService
-  []
+  [[:ConfigService get-in-config]]
   (init [this context]
-    (log/info "Initializing meow service in Japanese")
-    (assoc context :db (read-db)))
+    (log/info "こんにちは, initializing meow service in Japanese")
+    (assoc context :db (read-db (get-in-config [:meow-service :db-path]))))
 
   (start [this context]
     (log/info "Starting meow service in Japanese")
