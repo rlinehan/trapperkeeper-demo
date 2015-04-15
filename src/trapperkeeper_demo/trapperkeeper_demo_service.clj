@@ -2,6 +2,7 @@
   (:require [clojure.tools.logging :as log]
             [cheshire.core :as json]
             [trapperkeeper-demo.trapperkeeper-demo-core :as core]
+            [puppetlabs.trapperkeeper.rpc.core :refer [defremoteservice]]
             [puppetlabs.trapperkeeper.services :refer [service-context]]
             [puppetlabs.trapperkeeper.core :as trapperkeeper]))
 
@@ -67,3 +68,7 @@
   (meow [this caller]
         (let [db (:db (service-context this))]
           (core/japanese-meow db caller))))
+
+(defremoteservice remote-meow-service
+  MeowService
+  (meow [this caller]))

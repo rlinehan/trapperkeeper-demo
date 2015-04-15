@@ -18,6 +18,7 @@
 
   :profiles {:dev {:source-paths  ["dev"]
                    :dependencies [[puppetlabs/trapperkeeper ~tk-version :classifier "test" :scope "test"]
+                                  [puppetlabs/trapperkeeper-rpc "1.0.0" :exclusions [org.apache.httpcomponents/httpclient puppetlabs/trapperkeeper]]
                                   [puppetlabs/kitchensink ~ks-version :classifier "test" :scope "test"]
                                   [clj-http "0.9.2"]
                                   [org.clojure/tools.namespace "0.2.10"]
