@@ -11,13 +11,15 @@
 
 (def system nil)
 
-(defn init []
-  (alter-var-root #'system
-                  (fn [_] (tk/build-app
-                            (bootstrap/parse-bootstrap-config! "./dev-resources/bootstrap.cfg")
-                            (config/load-config "./dev-resources/config.conf"))))
+(defn init
+  ([] (init "./dev-resources/bootstrap.cfg" "./dev-resources/config.conf"))
+  ([bootstrap-path config-path]
+   (alter-var-root #'system
+                   (fn [_] (tk/build-app
+                            (bootstrap/parse-bootstrap-config! bootstrap-path)
+                            (config/load-config config-path))))
   (alter-var-root #'system tka/init)
-  (tka/check-for-errors! system))
+  (tka/check-for-errors! system)))
 
 (defn start []
   (alter-var-root #'system
