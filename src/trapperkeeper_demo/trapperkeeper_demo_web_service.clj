@@ -20,8 +20,8 @@
 
   (start [this context]
     (let [host (get-in-config [:webserver :host])
-           port (get-in-config [:webserver :port])
-           url-prefix (get-route this)]
-          (log/infof "Meow web service started; visit http://%s:%s%s/world to check it out!"
-                     host port url-prefix))
-     context))
+          port (get-in-config [:webserver :port])
+          url-prefix (get-route this)]
+      (log/infof "Meow web service started; visit http://%s:%s%s/world to check it out!"
+                 host port url-prefix))
+    context))
