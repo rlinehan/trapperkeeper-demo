@@ -18,9 +18,7 @@
   (init [this context]
     (log/info "Hello, initializing meow service in English")
     (assoc context :db (read-db (get-in-config [:meow-service :db-path]))))
-
 ...
-
   (meow [this caller]
         (let [db (:db (service-context this))]
           (core/english-meow db caller))))
@@ -31,9 +29,7 @@
   (init [this context]
     (log/info "Bonjour, initializing meow service in French")
     (assoc context :db (read-db (get-in-config [:meow-service :db-path]))))
-
 ...
-
   (meow [this caller]
         (let [db (:db (service-context this))]
           (core/french-meow db caller))))
