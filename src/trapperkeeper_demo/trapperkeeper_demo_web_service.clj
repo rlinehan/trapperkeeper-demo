@@ -17,7 +17,6 @@
       (assoc context :url-prefix url-prefix)))
   (start [this context]
     ... ;; let block defining `host` `port` & `url-prefix`
-      (log/infof "Meow web service started;"
-                 " visit http://%s:%s%s/world to check it out!"
+      (log/infof "Meow web service started; visit http://%s:%s%s/world to check it out!"
                  host port url-prefix))
     context))
