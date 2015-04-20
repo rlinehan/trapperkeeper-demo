@@ -13,4 +13,5 @@
     (tk-testutils/with-app-with-config app [service]
       {:meow-service {:db-path "resources/test-meowdb.json"}}
       (let [meow-service (app/get-service app :MeowService)]
-        (is (= (str "=^.^= < " sound " foo") (svc/meow meow-service "foo"))))))))
+        (is (= (str "=^.^= < " sound " foo")
+               (svc/meow meow-service "foo"))))))))
