@@ -14,7 +14,7 @@
 
 (trapperkeeper/defservice meow-english-service
   MeowService
-  [[:ConfigService get-in-config get-config]]
+  [[:ConfigService get-in-config]]
   (init [this context]
     (log/info "Hello, initializing meow service in English")
     (assoc context :db (read-db (get-in-config [:meow-service :db-path]))))
