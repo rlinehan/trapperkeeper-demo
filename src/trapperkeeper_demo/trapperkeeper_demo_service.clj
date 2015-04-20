@@ -16,8 +16,9 @@
   MeowService
   [[:ConfigService get-in-config]]
   (init [this context]
-    (log/info "Hello, initializing meow service in English")
-    (assoc context :db (read-db (get-in-config [:meow-service :db-path]))))
+    (let [db-path (get-in-config [:meow-service :db-path])]
+      (log/info "Hello, initializing meow service in English")
+      (assoc context :db (read-db db-path))))
 
   (start [this context]
     (log/info "Starting meow service in English")
@@ -28,15 +29,16 @@
     context)
 
   (meow [this caller]
-        (let [db (:db (service-context this))]
-          (core/english-meow db caller))))
+    (let [db (:db (service-context this))]
+      (core/english-meow db caller))))
 
 (trapperkeeper/defservice meow-french-service
   MeowService
   [[:ConfigService get-in-config]]
   (init [this context]
-    (log/info "Bonjour, initializing meow service in French")
-    (assoc context :db (read-db (get-in-config [:meow-service :db-path]))))
+    (let [db-path (get-in-config [:meow-service :db-path])]
+      (log/info "Bonjour, initializing meow service in French")
+      (assoc context :db (read-db db-path))))
 
   (start [this context]
     (log/info "Starting meow service in French")
@@ -47,15 +49,16 @@
     context)
 
   (meow [this caller]
-        (let [db (:db (service-context this))]
-          (core/french-meow db caller))))
+    (let [db (:db (service-context this))]
+      (core/french-meow db caller))))
 
 (trapperkeeper/defservice meow-japanese-service
   MeowService
   [[:ConfigService get-in-config]]
   (init [this context]
-    (log/info "こんにちは, initializing meow service in Japanese")
-    (assoc context :db (read-db (get-in-config [:meow-service :db-path]))))
+    (let [db-path (get-in-config [:meow-service :db-path])]
+      (log/info "こんにちは, initializing meow service in Japanese")
+      (assoc context :db (read-db db-path))))
 
   (start [this context]
     (log/info "Starting meow service in Japanese")
@@ -66,8 +69,8 @@
     context)
 
   (meow [this caller]
-        (let [db (:db (service-context this))]
-          (core/japanese-meow db caller))))
+    (let [db (:db (service-context this))]
+      (core/japanese-meow db caller))))
 
 (defremoteservice remote-meow-service
   MeowService
