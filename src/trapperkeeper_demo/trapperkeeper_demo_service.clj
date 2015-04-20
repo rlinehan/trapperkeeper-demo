@@ -19,13 +19,7 @@
     (log/info "Hello, initializing meow service in English")
     (assoc context :db (read-db (get-in-config [:meow-service :db-path]))))
 
-  (start [this context]
-    (log/info "Starting meow service in English")
-    context)
-
-  (stop [this context]
-    (log/info "Shutting down English meow service")
-    context)
+...
 
   (meow [this caller]
         (let [db (:db (service-context this))]
@@ -38,13 +32,7 @@
     (log/info "Bonjour, initializing meow service in French")
     (assoc context :db (read-db (get-in-config [:meow-service :db-path]))))
 
-  (start [this context]
-    (log/info "Starting meow service in French")
-    context)
-
-  (stop [this context]
-    (log/info "Shutting down French meow service")
-    context)
+...
 
   (meow [this caller]
         (let [db (:db (service-context this))]
