@@ -12,16 +12,12 @@
   (init [this context]
     (log/info "Initializing meow webservice")
     (let [url-prefix (get-route this)]
-      (add-ring-handler
-        this
-        (compojure/context url-prefix []
-          (web-core/app meow)))
+      (add-ring-handler this
+        (compojure/context url-prefix [] (web-core/app meow)))
       (assoc context :url-prefix url-prefix)))
-
   (start [this context]
-    (let [host (get-in-config [:webserver :meow :host])
-          port (get-in-config [:webserver :meow :port])
-          url-prefix (get-route this)]
-      (log/infof "Meow web service started; visit http://%s:%s%s/world to check it out!"
+    ... ;; let block defining `host` `port` & `url-prefix`
+      (log/infof "Meow web service started;"
+                 " visit http://%s:%s%s/world to check it out!"
                  host port url-prefix))
     context))
